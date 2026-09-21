@@ -2,107 +2,84 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Power Chatt</title>
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b0b0b;
-  color: white;
-}
-
-.app {
-  max-width: 430px;
-  min-height: 100vh;
-  margin: auto;
-  background: #151515;
-}
-
-.header {
-  padding: 22px;
-  text-align: center;
-  background: #000;
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.content {
-  padding: 45px 20px;
-  text-align: center;
-}
-
-.logo {
-  font-size: 48px;
-  margin-bottom: 15px;
-}
-
-h1 {
-  font-size: 32px;
-  margin: 10px 0;
-}
-
-p {
-  color: #aaa;
-  line-height: 1.5;
-}
-
-button {
-  width: 90%;
-  margin-top: 30px;
-  padding: 16px;
-  border: 0;
-  border-radius: 12px;
-  background: white;
-  color: black;
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.footer {
-  margin-top: 60px;
-  color: #777;
-  font-size: 13px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Chatt</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:#0b0b0f;
+      color:white;
+      font-family:Arial,sans-serif;
+    }
+    .app{
+      max-width:500px;
+      min-height:100vh;
+      margin:auto;
+      background:#15151c;
+    }
+    header{
+      padding:20px;
+      text-align:center;
+      font-size:28px;
+      font-weight:bold;
+      background:#20202a;
+    }
+    .logo{color:#8b5cf6}
+    .hero{
+      padding:35px 20px;
+      text-align:center;
+    }
+    .hero h1{font-size:32px;margin:10px 0}
+    .hero p{color:#aaa}
+    .buttons{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:25px;
+    }
+    button{
+      border:0;
+      border-radius:12px;
+      padding:14px 22px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .primary{
+      background:#8b5cf6;
+      color:white;
+    }
+    .secondary{
+      background:#292936;
+      color:white;
+    }
+    .rooms{
+      padding:20px;
+    }
+    .rooms h2{margin-bottom:15px}
+    .room{
+      background:#22222c;
+      padding:16px;
+      border-radius:14px;
+      margin-bottom:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .room span{color:#aaa;font-size:13px}
+    footer{
+      text-align:center;
+      padding:25px;
+      color:#777;
+      font-size:13px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="app">
 
-<div class="app">
-
-  <div class="header">
-    POWER CHATT
-  </div>
-
-  <div class="content">
-
-    <div class="logo">💬</div>
-
-    <h1>Hoş Geldin</h1>
-
-    <p>
-      Yeni insanlarla tanış,<br>
-      sohbet et ve bağlantı kur.
-    </p>
-
-    <button>
-      Sohbete Başla
-    </button>
-
-    <div class="footer">
-      Türkiye • Azerbaycan
-    </div>
-
-  </div>
-
-</div>
-
-</body>
-</html>
+    <header>
+      <span
