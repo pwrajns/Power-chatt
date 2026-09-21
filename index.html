@@ -6,296 +6,213 @@
 <title>Power Chatt</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  background:#08080d;
-  color:#fff;
+  background:#f7f7f7;
   font-family:Arial,sans-serif;
+  color:#222;
 }
 
 .app{
-  width:100%;
-  max-width:430px;
+  max-width:500px;
+  margin:auto;
   min-height:100vh;
-  margin:auto;
-  background:linear-gradient(180deg,#171027,#08090e);
-  position:relative;
-  overflow:hidden;
+  background:#fff;
+  padding-bottom:80px;
 }
 
-.content{
-  padding-bottom:95px;
-}
-
-/* ÜST MENÜ */
-header{
-  padding:20px 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
+.header{
+  padding:22px 20px 12px;
   font-size:27px;
-  font-weight:800;
-}
-
-.logo span{
-  color:#9b5cff;
-}
-
-.icon{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:#24183b;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:19px;
-}
-
-/* HOŞ GELDİN */
-.banner{
-  margin:5px 15px 20px;
-  padding:20px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#713cff,#b23cff);
-  box-shadow:0 10px 35px #6b35a755;
-}
-
-.banner h2{
-  margin:0 0 8px;
-  font-size:22px;
-}
-
-.banner p{
-  margin:0;
-  opacity:.9;
-}
-
-/* BÖLÜMLER */
-.section{
-  padding:0 18px;
-  margin-top:22px;
-}
-
-.section-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:13px;
-}
-
-.section-title h3{
-  margin:0;
-  font-size:18px;
-}
-
-.section-title span{
-  color:#a875ff;
-  font-size:13px;
-}
-
-/* ÇEVRİMİÇİ */
-.users{
-  display:flex;
-  gap:15px;
-  overflow-x:auto;
-  padding-bottom:5px;
-}
-
-.users::-webkit-scrollbar{
-  display:none;
-}
-
-.user{
-  min-width:70px;
-  text-align:center;
-}
-
-.avatar{
-  width:64px;
-  height:64px;
-  border-radius:50%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  background:linear-gradient(135deg,#ff4f9a,#7c4dff);
-  border:3px solid #a66cff;
-}
-
-.user p{
-  margin:7px 0 0;
-  font-size:12px;
-}
-
-/* ANLAR */
-.moments{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  padding-bottom:8px;
-}
-
-.moments::-webkit-scrollbar{
-  display:none;
-}
-
-.moment{
-  min-width:125px;
-  height:175px;
-  border-radius:18px;
-  overflow:hidden;
-  position:relative;
-  background:linear-gradient(160deg,#783cff,#ee3d91);
-  border:1px solid #3a2a50;
-}
-
-.moment-bg{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:65px;
-}
-
-.moment-info{
-  position:absolute;
-  left:9px;
-  right:9px;
-  bottom:8px;
-  padding:8px;
-  border-radius:12px;
-  background:#00000080;
-  backdrop-filter:blur(5px);
-}
-
-.moment-info b{
-  font-size:12px;
-}
-
-.moment-info small{
-  display:block;
-  margin-top:3px;
-  color:#ddd;
-  font-size:10px;
-}
-
-/* ANINI PAYLAŞ */
-.share-moment{
-  margin-top:12px;
-  padding:15px;
-  border:1px dashed #7048a8;
-  border-radius:17px;
-  background:#171323;
-  text-align:center;
-}
-
-.share-moment button{
-  border:0;
-  background:linear-gradient(135deg,#794cff,#b23cff);
-  color:white;
-  padding:12px 20px;
-  border-radius:13px;
   font-weight:bold;
+}
+
+.card{
+  margin:10px 15px;
+  padding:18px;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 2px 12px #ddd;
+}
+
+.card-title{
+  font-size:22px;
+  margin-bottom:18px;
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  text-align:center;
+}
+
+.quick-item{
   font-size:14px;
 }
 
-/* KİŞİLER */
-.card{
+.icon{
+  width:58px;
+  height:58px;
+  margin:auto auto 8px;
+  border-radius:18px;
   display:flex;
   align-items:center;
-  padding:14px;
-  margin-bottom:10px;
-  background:#171722;
-  border:1px solid #272438;
-  border-radius:17px;
+  justify-content:center;
+  font-size:29px;
+  background:#eee;
 }
 
-.card .avatar{
-  width:52px;
-  height:52px;
-  min-width:52px;
-  font-size:20px;
-  border:2px solid #7d55ff;
+.games{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px 8px;
 }
 
-.info{
-  flex:1;
-  margin-left:12px;
+.game{
+  text-align:center;
+  font-size:13px;
+  min-width:0;
 }
 
-.info b{
-  font-size:15px;
+.game-icon{
+  width:58px;
+  height:58px;
+  margin:auto auto 7px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  background:linear-gradient(135deg,#763cff,#ff4d9d);
+  box-shadow:0 4px 10px #ccc;
 }
 
-.info small{
-  display:block;
-  margin-top:5px;
-  color:#9995a8;
+.game-name{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.chat-btn{
-  border:0;
-  color:#fff;
-  background:#794cff;
-  padding:10px 14px;
-  border-radius:12px;
-  font-weight:bold;
+.menu-list{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
 }
 
-/* ALT MENÜ */
-nav{
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:17px;
+  font-size:18px;
+}
+
+.menu-icon{
+  width:35px;
+  text-align:center;
+  font-size:25px;
+}
+
+.bottom{
   position:fixed;
   bottom:0;
+  left:50%;
+  transform:translateX(-50%);
   width:100%;
-  max-width:430px;
+  max-width:500px;
   height:72px;
-  background:#111119ee;
-  backdrop-filter:blur(12px);
-  border-top:1px solid #292633;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:20;
+  background:white;
+  border-top:1px solid #ddd;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:10;
 }
 
-nav button{
-  background:none;
-  border:0;
-  color:#888493;
+.bottom-item{
+  text-align:center;
+  padding-top:9px;
   font-size:12px;
 }
 
-nav button.active{
-  color:#a76cff;
-}
-
-nav div{
-  font-size:21px;
+.bottom-icon{
+  font-size:25px;
+  display:block;
   margin-bottom:3px;
 }
 
-/* YÜKLEME ALANI */
-input[type="file"]{
+.page{
   display:none;
 }
 
-#preview{
+.page.active{
+  display:block;
+}
+
+/* ROKET */
+.rocket-page{
+  min-height:calc(100vh - 72px);
+  background:linear-gradient(#120b35,#050510);
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+.back{
+  text-align:left;
+  font-size:18px;
+  margin-bottom:25px;
+}
+
+.rocket-title{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.multiplier{
+  font-size:58px;
+  font-weight:bold;
+  margin-top:35px;
+}
+
+.rocket-area{
+  height:300px;
+  position:relative;
+  overflow:hidden;
+  margin-top:10px;
+  border-radius:25px;
+  background:
+    radial-gradient(circle at 20% 20%,#fff 1px,transparent 2px),
+    radial-gradient(circle at 70% 40%,#fff 1px,transparent 2px),
+    radial-gradient(circle at 40% 70%,#fff 1px,transparent 2px),
+    #080817;
+}
+
+.rocket{
+  position:absolute;
+  left:50%;
+  bottom:35px;
+  transform:translateX(-50%);
+  font-size:65px;
+  transition:bottom .4s;
+}
+
+.start-btn{
+  margin-top:20px;
   width:100%;
-  max-height:260px;
-  object-fit:cover;
+  padding:17px;
+  border:0;
   border-radius:15px;
-  margin-top:12px;
-  display:none;
+  background:#ff4d6d;
+  color:#fff;
+  font-size:19px;
+  font-weight:bold;
+}
+
+.coin{
+  margin-top:15px;
+  font-size:17px;
 }
 </style>
 </head>
@@ -304,44 +221,38 @@ input[type="file"]{
 
 <div class="app">
 
-<div class="content">
+<!-- ANA SAYFA -->
+<div id="home" class="page active">
 
-<header>
-  <div class="logo">Power <span>Chatt</span></div>
-  <div class="icon">🔔</div>
-</header>
+<div class="header">
+Power Chatt
+</div>
 
-<div class="banner">
-  <h2>Power Chatt'a Hoş Geldin 👋</h2>
-  <p>Yeni insanlarla tanış, sohbet et ve eğlen.</p>
+<div class="card">
+<div class="card-title">Sık kullanılanlar</div>
+
+<div class="quick">
+<div class="quick-item">
+<div class="icon">💎</div>
+Elmas
+</div>
+
+<div class="quick-item">
+<div class="icon">👩</div>
+Ziyaretçi
+</div>
+
+<div class="quick-item">
+<div class="icon">📅</div>
+Görevler
+</div>
+
+<div class="quick-item">
+<div class="icon">👥</div>
+Grup
+</div>
+</div>
 </div>
 
 
-<!-- ÇEVRİMİÇİ -->
-<section class="section">
-
-<div class="section-title">
-  <h3>✨ Çevrimiçi</h3>
-  <span>Hepsini gör</span>
-</div>
-
-<div class="users">
-
-<div class="user">
-  <div class="avatar">👩</div>
-  <p>Elif</p>
-</div>
-
-<div class="user">
-  <div class="avatar">👨</div>
-  <p>Emir</p>
-</div>
-
-<div class="user">
-  <div class="avatar">👩</div>
-  <p>Zeynep</p>
-</div>
-
-<div class="user">
-  <div class="avatar">👨</div>
-  <p
+<div
