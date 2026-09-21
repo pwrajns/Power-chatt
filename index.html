@@ -1,135 +1,327 @@
-
-<!DOCTYPE html>
-<html lang="tr">
+<!DOCTYPE html><html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Power Chatt</title>
-  <style>
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:#0b0b0f;
-      color:white;
-      font-family:Arial,sans-serif;
-    }
-    .app{
-      max-width:500px;
-      min-height:100vh;
-      margin:auto;
-      background:#15151c;
-    }
-    header{
-      padding:20px;
-      text-align:center;
-      font-size:28px;
-      font-weight:bold;
-      background:#20202a;
-    }
-    .logo{color:#8b5cf6}
-    .hero{
-      padding:35px 20px;
-      text-align:center;
-    }
-    .hero h1{font-size:32px;margin:10px 0}
-    .hero p{color:#aaa}
-    .buttons{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      margin-top:25px;
-    }
-    button{
-      border:0;
-      border-radius:12px;
-      padding:14px 22px;
-      font-size:16px;
-      font-weight:bold;
-      cursor:pointer;
-    }
-    .primary{
-      background:#8b5cf6;
-      color:white;
-    }
-    .secondary{
-      background:#292936;
-      color:white;
-    }
-    .rooms{
-      padding:20px;
-    }
-    .rooms h2{margin-bottom:15px}
-    .room{
-      background:#22222c;
-      padding:16px;
-      border-radius:14px;
-      margin-bottom:12px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .room span{color:#aaa;font-size:13px}
-    footer{
-      text-align:center;
-      padding:25px;
-      color:#777;
-      font-size:13px;
-    }
-  </style>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Chatt</title><style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-<body>
-  <div class="app">
+body{
+  font-family:Arial,sans-serif;
+  background:#08080d;
+  color:#fff;
+  min-height:100vh;
+}
 
-    <header>
-      <span class="logo">Power</span> Chatt
-    </header>
+.app{
+  width:100%;
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,0,170,.22),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(0,190,255,.20),transparent 32%),
+    linear-gradient(180deg,#10101a,#08080d);
+  overflow:hidden;
+}
 
-    <section class="hero">
-      <h1>Power Chatt</h1>
-      <p>Yeni insanlarla tanış, sohbet et ve eğlen.</p>
+/* ÜST ALAN */
+.header{
+  height:72px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(15px);
+}
 
-      <div class="buttons">
-        <button class="primary" onclick="alert('Yakında kayıt ekranı açılacak!')">
-          Kayıt Ol
-        </button>
+.logo{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-1px;
+}
 
-        <button class="secondary" onclick="alert('Yakında giriş ekranı açılacak!')">
-          Giriş Yap
-        </button>
-      </div>
-    </section>
+.logo span{
+  background:linear-gradient(90deg,#ff3bbd,#8b5cff,#22d3ff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
 
-    <section class="rooms">
-      <h2>Sohbet Odaları</h2>
+.menu{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.08);
+  font-size:22px;
+}
 
-      <div class="room">
-        <div>
-          🇹🇷 Türkiye
-          <br>
-          <span>Genel sohbet</span>
-        </div>
-        <button class="primary" onclick="alert('Odaya katılma yakında aktif olacak!')">
-          Katıl
-        </button>
-      </div>
+/* KARŞILAMA */
+.welcome{
+  padding:28px 20px 18px;
+}
 
-      <div class="room">
-        <div>
-          🇦🇿 Azerbaycan
-          <br>
-          <span>Genel sohbet</span>
-        </div>
-        <button class="primary" onclick="alert('Odaya katılma yakında aktif olacak!')">
-          Katıl
-        </button>
-      </div>
-    </section>
+.welcome h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
 
-    <footer>
-      © 2026 Power Chatt
-    </footer>
+.welcome p{
+  color:#a9a9b7;
+  font-size:14px;
+}
 
+/* ARAMA */
+.search{
+  margin:0 20px 20px;
+  height:48px;
+  padding:0 16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-radius:16px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.search input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:white;
+  font-size:15px;
+}
+
+.search input::placeholder{
+  color:#777783;
+}
+
+/* KULLANICILAR */
+.title{
+  padding:0 20px 12px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.users{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding:0 20px 22px;
+}
+
+.users::-webkit-scrollbar{
+  display:none;
+}
+
+.user{
+  min-width:72px;
+  text-align:center;
+}
+
+.avatar{
+  width:62px;
+  height:62px;
+  margin:auto;
+  border-radius:50%;
+  padding:2px;
+  background:linear-gradient(135deg,#ff31b8,#7957ff,#18d8ff);
+}
+
+.avatar div{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:#242432;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+}
+
+.user p{
+  margin-top:7px;
+  font-size:12px;
+  color:#cfcfda;
+}
+
+/* SOHBET KARTLARI */
+.chat-list{
+  padding:0 14px 90px;
+}
+
+.chat{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px 8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.chat-avatar{
+  width:54px;
+  height:54px;
+  flex:none;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#292946,#151523);
+  border:1px solid rgba(255,255,255,.10);
+  font-size:22px;
+}
+
+.chat-info{
+  flex:1;
+  min-width:0;
+}
+
+.chat-info h3{
+  font-size:15px;
+  margin-bottom:5px;
+}
+
+.chat-info p{
+  color:#858592;
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.time{
+  color:#777783;
+  font-size:11px;
+}
+
+/* ALT MENÜ */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  height:72px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  background:rgba(12,12,20,.88);
+  backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.nav{
+  text-align:center;
+  color:#777783;
+  font-size:11px;
+}
+
+.nav-icon{
+  font-size:22px;
+  margin-bottom:3px;
+}
+
+.nav.active{
+  color:#ff42bd;
+}
+
+/* ORTA BUTON */
+.add{
+  width:54px;
+  height:54px;
+  margin-top:-28px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  background:linear-gradient(135deg,#ff35ba,#7555ff);
+  box-shadow:0 8px 30px rgba(196,55,255,.35);
+  color:white;
+}
+</style></head><body><div class="app">  <header class="header">
+    <div class="logo">
+      Power <span>Chatt</span>
+    </div>
+    <div class="menu">☰</div>
+  </header>  <section class="welcome">
+    <h1>Merhaba 👋</h1>
+    <p>Power Chatt'a hoş geldin. Yeni insanlarla tanış.</p>
+  </section>  <div class="search">
+    🔍
+    <input type="text" placeholder="Sohbet veya kullanıcı ara...">
+  </div>  <div class="title">Çevrimiçi kişiler</div>  <div class="users">
+    <div class="user">
+      <div class="avatar"><div>👨🏻</div></div>
+      <p>Emir</p>
+    </div><div class="user">
+  <div class="avatar"><div>👩🏻</div></div>
+  <p>Zeyno</p>
+</div>
+
+<div class="user">
+  <div class="avatar"><div>👨🏽</div></div>
+  <p>Burak</p>
+</div>
+
+<div class="user">
+  <div class="avatar"><div>👩🏽</div></div>
+  <p>Elif</p>
+</div>
+
+<div class="user">
+  <div class="avatar"><div>👨🏼</div></div>
+  <p>Mert</p>
+</div>
+
+  </div>  <div class="title">Sohbetler</div>  <div class="chat-list"><div class="chat">
+  <div class="chat-avatar">👩🏻</div>
+  <div class="chat-info">
+    <h3>Zeyno</h3>
+    <p>Merhaba, nasılsın? 😊</p>
   </div>
-</body>
+  <div class="time">22:18</div>
+</div>
+
+<div class="chat">
+  <div class="chat-avatar">👨🏻</div>
+  <div class="chat-info">
+    <h3>Emir</h3>
+    <p>Bugün Power Chatt'a geldin mi?</p>
+  </div>
+  <div class="time">21:42</div>
+</div>
+
+<div class="chat">
+  <div class="chat-avatar">👩🏽</div>
+  <div class="chat-info">
+    <h3>Elif</h3>
+    <p>Yeni sohbet odasını gördün mü?</p>
+  </div>
+  <div class="time">20:36</div>
+</div>
+
+  </div></div><nav class="bottom">
+  <div class="nav active">
+    <div class="nav-icon">💬</div>
+    Sohbet
+  </div>  <div class="nav">
+    <div class="nav-icon">👥</div>
+    Keşfet
+  </div>  <div class="add">＋</div>  <div class="nav">
+    <div class="nav-icon">🔔</div>
+    Bildirim
+  </div>  <div class="nav">
+    <div class="nav-icon">👤</div>
+    Profil
+  </div>
+</nav></body>
 </html>
