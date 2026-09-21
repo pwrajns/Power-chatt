@@ -1,120 +1,112 @@
-<!DOCTYPE html><html lang="tr">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Power Chatt</title><style>
+<title>Power Chatt</title>
+
+<style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
-  font-family:Arial,sans-serif;
+  margin:0;
   background:#08080d;
   color:#fff;
-  min-height:100vh;
+  font-family:Arial,sans-serif;
 }
 
 .app{
   width:100%;
-  max-width:480px;
+  max-width:430px;
   min-height:100vh;
   margin:auto;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(255,0,170,.22),transparent 30%),
-    radial-gradient(circle at 90% 20%,rgba(0,190,255,.20),transparent 32%),
-    linear-gradient(180deg,#10101a,#08080d);
+  background:linear-gradient(180deg,#171027,#08090e);
+  position:relative;
   overflow:hidden;
 }
 
-/* ÜST ALAN */
-.header{
-  height:72px;
-  padding:0 18px;
+.content{
+  padding-bottom:95px;
+}
+
+/* ÜST MENÜ */
+header{
+  padding:20px 18px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(15px);
 }
 
 .logo{
-  font-size:25px;
+  font-size:27px;
   font-weight:800;
-  letter-spacing:-1px;
 }
 
 .logo span{
-  background:linear-gradient(90deg,#ff3bbd,#8b5cff,#22d3ff);
-  -webkit-background-clip:text;
-  color:transparent;
+  color:#9b5cff;
 }
 
-.menu{
+.icon{
   width:42px;
   height:42px;
-  border-radius:14px;
+  border-radius:50%;
+  background:#24183b;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(255,255,255,.08);
+  font-size:19px;
+}
+
+/* HOŞ GELDİN */
+.banner{
+  margin:5px 15px 20px;
+  padding:20px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#713cff,#b23cff);
+  box-shadow:0 10px 35px #6b35a755;
+}
+
+.banner h2{
+  margin:0 0 8px;
   font-size:22px;
 }
 
-/* KARŞILAMA */
-.welcome{
-  padding:28px 20px 18px;
+.banner p{
+  margin:0;
+  opacity:.9;
 }
 
-.welcome h1{
-  font-size:30px;
-  margin-bottom:8px;
+/* BÖLÜMLER */
+.section{
+  padding:0 18px;
+  margin-top:22px;
 }
 
-.welcome p{
-  color:#a9a9b7;
-  font-size:14px;
-}
-
-/* ARAMA */
-.search{
-  margin:0 20px 20px;
-  height:48px;
-  padding:0 16px;
+.section-title{
   display:flex;
   align-items:center;
-  gap:10px;
-  border-radius:16px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.08);
+  justify-content:space-between;
+  margin-bottom:13px;
 }
 
-.search input{
-  width:100%;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:white;
-  font-size:15px;
+.section-title h3{
+  margin:0;
+  font-size:18px;
 }
 
-.search input::placeholder{
-  color:#777783;
+.section-title span{
+  color:#a875ff;
+  font-size:13px;
 }
 
-/* KULLANICILAR */
-.title{
-  padding:0 20px 12px;
-  font-size:17px;
-  font-weight:700;
-}
-
+/* ÇEVRİMİÇİ */
 .users{
   display:flex;
-  gap:14px;
+  gap:15px;
   overflow-x:auto;
-  padding:0 20px 22px;
+  padding-bottom:5px;
 }
 
 .users::-webkit-scrollbar{
@@ -122,206 +114,234 @@ body{
 }
 
 .user{
-  min-width:72px;
+  min-width:70px;
   text-align:center;
 }
 
 .avatar{
-  width:62px;
-  height:62px;
+  width:64px;
+  height:64px;
+  border-radius:50%;
   margin:auto;
-  border-radius:50%;
-  padding:2px;
-  background:linear-gradient(135deg,#ff31b8,#7957ff,#18d8ff);
-}
-
-.avatar div{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  background:#242432;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:24px;
+  font-size:25px;
+  background:linear-gradient(135deg,#ff4f9a,#7c4dff);
+  border:3px solid #a66cff;
 }
 
 .user p{
-  margin-top:7px;
+  margin:7px 0 0;
   font-size:12px;
-  color:#cfcfda;
 }
 
-/* SOHBET KARTLARI */
-.chat-list{
-  padding:0 14px 90px;
-}
-
-.chat{
+/* ANLAR */
+.moments{
   display:flex;
-  align-items:center;
-  gap:13px;
-  padding:14px 8px;
-  border-bottom:1px solid rgba(255,255,255,.06);
+  gap:12px;
+  overflow-x:auto;
+  padding-bottom:8px;
 }
 
-.chat-avatar{
-  width:54px;
-  height:54px;
-  flex:none;
-  border-radius:50%;
+.moments::-webkit-scrollbar{
+  display:none;
+}
+
+.moment{
+  min-width:125px;
+  height:175px;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  background:linear-gradient(160deg,#783cff,#ee3d91);
+  border:1px solid #3a2a50;
+}
+
+.moment-bg{
+  width:100%;
+  height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,#292946,#151523);
-  border:1px solid rgba(255,255,255,.10);
-  font-size:22px;
+  font-size:65px;
 }
 
-.chat-info{
+.moment-info{
+  position:absolute;
+  left:9px;
+  right:9px;
+  bottom:8px;
+  padding:8px;
+  border-radius:12px;
+  background:#00000080;
+  backdrop-filter:blur(5px);
+}
+
+.moment-info b{
+  font-size:12px;
+}
+
+.moment-info small{
+  display:block;
+  margin-top:3px;
+  color:#ddd;
+  font-size:10px;
+}
+
+/* ANINI PAYLAŞ */
+.share-moment{
+  margin-top:12px;
+  padding:15px;
+  border:1px dashed #7048a8;
+  border-radius:17px;
+  background:#171323;
+  text-align:center;
+}
+
+.share-moment button{
+  border:0;
+  background:linear-gradient(135deg,#794cff,#b23cff);
+  color:white;
+  padding:12px 20px;
+  border-radius:13px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+/* KİŞİLER */
+.card{
+  display:flex;
+  align-items:center;
+  padding:14px;
+  margin-bottom:10px;
+  background:#171722;
+  border:1px solid #272438;
+  border-radius:17px;
+}
+
+.card .avatar{
+  width:52px;
+  height:52px;
+  min-width:52px;
+  font-size:20px;
+  border:2px solid #7d55ff;
+}
+
+.info{
   flex:1;
-  min-width:0;
+  margin-left:12px;
 }
 
-.chat-info h3{
+.info b{
   font-size:15px;
-  margin-bottom:5px;
 }
 
-.chat-info p{
-  color:#858592;
-  font-size:13px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.info small{
+  display:block;
+  margin-top:5px;
+  color:#9995a8;
 }
 
-.time{
-  color:#777783;
-  font-size:11px;
+.chat-btn{
+  border:0;
+  color:#fff;
+  background:#794cff;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:bold;
 }
 
 /* ALT MENÜ */
-.bottom{
+nav{
   position:fixed;
   bottom:0;
-  left:50%;
-  transform:translateX(-50%);
   width:100%;
-  max-width:480px;
+  max-width:430px;
   height:72px;
+  background:#111119ee;
+  backdrop-filter:blur(12px);
+  border-top:1px solid #292633;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  background:rgba(12,12,20,.88);
-  backdrop-filter:blur(20px);
-  border-top:1px solid rgba(255,255,255,.08);
+  z-index:20;
 }
 
-.nav{
-  text-align:center;
-  color:#777783;
-  font-size:11px;
+nav button{
+  background:none;
+  border:0;
+  color:#888493;
+  font-size:12px;
 }
 
-.nav-icon{
-  font-size:22px;
+nav button.active{
+  color:#a76cff;
+}
+
+nav div{
+  font-size:21px;
   margin-bottom:3px;
 }
 
-.nav.active{
-  color:#ff42bd;
+/* YÜKLEME ALANI */
+input[type="file"]{
+  display:none;
 }
 
-/* ORTA BUTON */
-.add{
-  width:54px;
-  height:54px;
-  margin-top:-28px;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  background:linear-gradient(135deg,#ff35ba,#7555ff);
-  box-shadow:0 8px 30px rgba(196,55,255,.35);
-  color:white;
+#preview{
+  width:100%;
+  max-height:260px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-top:12px;
+  display:none;
 }
-</style></head><body><div class="app">  <header class="header">
-    <div class="logo">
-      Power <span>Chatt</span>
-    </div>
-    <div class="menu">☰</div>
-  </header>  <section class="welcome">
-    <h1>Merhaba 👋</h1>
-    <p>Power Chatt'a hoş geldin. Yeni insanlarla tanış.</p>
-  </section>  <div class="search">
-    🔍
-    <input type="text" placeholder="Sohbet veya kullanıcı ara...">
-  </div>  <div class="title">Çevrimiçi kişiler</div>  <div class="users">
-    <div class="user">
-      <div class="avatar"><div>👨🏻</div></div>
-      <p>Emir</p>
-    </div><div class="user">
-  <div class="avatar"><div>👩🏻</div></div>
-  <p>Zeyno</p>
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="content">
+
+<header>
+  <div class="logo">Power <span>Chatt</span></div>
+  <div class="icon">🔔</div>
+</header>
+
+<div class="banner">
+  <h2>Power Chatt'a Hoş Geldin 👋</h2>
+  <p>Yeni insanlarla tanış, sohbet et ve eğlen.</p>
 </div>
 
-<div class="user">
-  <div class="avatar"><div>👨🏽</div></div>
-  <p>Burak</p>
+
+<!-- ÇEVRİMİÇİ -->
+<section class="section">
+
+<div class="section-title">
+  <h3>✨ Çevrimiçi</h3>
+  <span>Hepsini gör</span>
 </div>
 
+<div class="users">
+
 <div class="user">
-  <div class="avatar"><div>👩🏽</div></div>
+  <div class="avatar">👩</div>
   <p>Elif</p>
 </div>
 
 <div class="user">
-  <div class="avatar"><div>👨🏼</div></div>
-  <p>Mert</p>
+  <div class="avatar">👨</div>
+  <p>Emir</p>
 </div>
 
-  </div>  <div class="title">Sohbetler</div>  <div class="chat-list"><div class="chat">
-  <div class="chat-avatar">👩🏻</div>
-  <div class="chat-info">
-    <h3>Zeyno</h3>
-    <p>Merhaba, nasılsın? 😊</p>
-  </div>
-  <div class="time">22:18</div>
+<div class="user">
+  <div class="avatar">👩</div>
+  <p>Zeynep</p>
 </div>
 
-<div class="chat">
-  <div class="chat-avatar">👨🏻</div>
-  <div class="chat-info">
-    <h3>Emir</h3>
-    <p>Bugün Power Chatt'a geldin mi?</p>
-  </div>
-  <div class="time">21:42</div>
-</div>
-
-<div class="chat">
-  <div class="chat-avatar">👩🏽</div>
-  <div class="chat-info">
-    <h3>Elif</h3>
-    <p>Yeni sohbet odasını gördün mü?</p>
-  </div>
-  <div class="time">20:36</div>
-</div>
-
-  </div></div><nav class="bottom">
-  <div class="nav active">
-    <div class="nav-icon">💬</div>
-    Sohbet
-  </div>  <div class="nav">
-    <div class="nav-icon">👥</div>
-    Keşfet
-  </div>  <div class="add">＋</div>  <div class="nav">
-    <div class="nav-icon">🔔</div>
-    Bildirim
-  </div>  <div class="nav">
-    <div class="nav-icon">👤</div>
-    Profil
-  </div>
-</nav></body>
-</html>
+<div class="user">
+  <div class="avatar">👨</div>
+  <p
