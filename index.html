@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Power Chatt</title>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
@@ -19,7 +21,15 @@ font-family:Arial,sans-serif;
 color:#222;
 }
 
-.hidden{display:none!important}
+button,
+input,
+textarea{
+font-family:Arial,sans-serif;
+}
+
+.hidden{
+display:none!important;
+}
 
 .app{
 max-width:500px;
@@ -29,8 +39,14 @@ background:#fff;
 padding-bottom:90px;
 }
 
-.page{display:none;min-height:100vh}
-.page.active{display:block}
+.page{
+display:none;
+min-height:100vh;
+}
+
+.page.active{
+display:block;
+}
 
 .header{
 padding:22px 20px 12px;
@@ -59,7 +75,9 @@ gap:10px;
 text-align:center;
 }
 
-.quick-item{font-size:13px}
+.quick-item{
+font-size:13px;
+}
 
 .icon{
 width:58px;
@@ -97,9 +115,12 @@ align-items:center;
 justify-content:center;
 font-size:24px;
 background:#e8ddff;
+flex-shrink:0;
 }
 
-.user-name{font-weight:bold}
+.user-name{
+font-weight:bold;
+}
 
 .user-status{
 font-size:12px;
@@ -160,7 +181,7 @@ margin-bottom:3px;
 
 .profile-head{
 text-align:center;
-padding:25px 15px;
+padding:25px 15px 10px;
 }
 
 .profile-avatar{
@@ -184,6 +205,12 @@ margin-top:12px;
 .username{
 color:#777;
 margin-top:5px;
+}
+
+.bio{
+color:#666;
+margin-top:8px;
+font-size:14px;
 }
 
 .stats{
@@ -215,6 +242,7 @@ color:white;
 .coin-number{
 font-size:28px;
 font-weight:bold;
+margin-top:5px;
 }
 
 .button{
@@ -283,6 +311,23 @@ border:1px solid #ddd;
 border-radius:12px;
 margin-bottom:12px;
 font-size:16px;
+outline:none;
+}
+
+.input:focus,
+.textarea:focus{
+border-color:#6847dc;
+}
+
+.textarea{
+width:100%;
+min-height:110px;
+padding:15px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:16px;
+resize:vertical;
+outline:none;
 }
 
 .google{
@@ -291,7 +336,9 @@ color:#222;
 border:1px solid #ddd;
 }
 
-.logout{background:#e53935}
+.logout{
+background:#e53935;
+}
 
 .error{
 margin-top:15px;
@@ -311,6 +358,111 @@ background:#e5f7e8;
 color:#218838;
 font-size:14px;
 display:none;
+}
+
+.memory{
+padding:15px;
+border-radius:15px;
+background:#f7f7fb;
+margin-top:12px;
+}
+
+.memory-top{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.memory-author{
+font-weight:bold;
+}
+
+.memory-date{
+font-size:11px;
+color:#888;
+margin-top:3px;
+}
+
+.memory-text{
+margin-top:12px;
+line-height:1.5;
+white-space:pre-wrap;
+}
+
+.delete-memory{
+margin-top:10px;
+border:0;
+background:#ffe5e5;
+color:#c62828;
+padding:8px 12px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.empty{
+text-align:center;
+padding:25px 10px;
+color:#777;
+}
+
+.profile-edit{
+display:none;
+margin:15px;
+padding:20px;
+border-radius:20px;
+background:#f7f7fb;
+}
+
+.profile-edit.active{
+display:block;
+}
+
+.avatar-options{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:8px;
+margin-top:10px;
+}
+
+.avatar-option{
+border:2px solid transparent;
+background:white;
+border-radius:12px;
+font-size:25px;
+padding:8px;
+cursor:pointer;
+}
+
+.avatar-option.selected{
+border-color:#6847dc;
+background:#eee8ff;
+}
+
+.close-button{
+background:#ddd;
+color:#222;
+}
+
+.loading{
+text-align:center;
+padding:20px;
+color:#777;
+}
+
+.toast{
+position:fixed;
+left:50%;
+bottom:90px;
+transform:translateX(-50%);
+background:#222;
+color:#fff;
+padding:12px 18px;
+border-radius:12px;
+font-size:14px;
+z-index:999;
+display:none;
+max-width:90%;
+text-align:center;
 }
 </style>
 </head>
@@ -367,7 +519,6 @@ Kayıt Ol
 
 <!-- UYGULAMA -->
 <div id="appPage" class="app hidden">
-
 
 <!-- ANA SAYFA -->
 <div id="home" class="page active">
@@ -465,7 +616,9 @@ Aktif Kullanıcılar
 <!-- ANILAR -->
 <div id="memories" class="page">
 
-<div class="header">Anılar</div>
+<div class="header">
+Anılar
+</div>
 
 <div class="card">
 
@@ -474,12 +627,32 @@ Aktif Kullanıcılar
 </div>
 
 <p>
-Fotoğraf ve güzel anlarını Power Chatt'te paylaş.
+Güzel anılarını Power Chatt'te paylaş.
 </p>
 
-<button class="button">
-Anı Ekle
+<textarea
+id="memoryText"
+class="textarea"
+placeholder="Bugün ne paylaşmak istiyorsun?"
+></textarea>
+
+<button class="button" onclick="shareMemory()">
+📤 Anıyı Paylaş
 </button>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+✨ Paylaşılan Anılar
+</div>
+
+<div id="memoryList">
+<div class="loading">
+Anılar yükleniyor...
+</div>
+</div>
 
 </div>
 
@@ -489,7 +662,9 @@ Anı Ekle
 <!-- ODALAR -->
 <div id="rooms" class="page">
 
-<div class="header">Odalar</div>
+<div class="header">
+Odalar
+</div>
 
 <div class="card">
 
@@ -499,17 +674,17 @@ Sohbet Odaları
 
 <div class="rooms">
 
-<div class="room">
+<div class="room" onclick="showToast('Türkiye Sohbet odası hazırlanıyor.')">
 🇹🇷 Türkiye Sohbet
 <small>Aktif kullanıcılarla sohbet et</small>
 </div>
 
-<div class="room">
+<div class="room" onclick="showToast('Azerbaycan Sohbet odası hazırlanıyor.')">
 🇦🇿 Azerbaycan Sohbet
 <small>Yeni insanlarla tanış</small>
 </div>
 
-<div class="room">
+<div class="room" onclick="showToast('Gece Sohbeti odası hazırlanıyor.')">
 🌙 Gece Sohbeti
 <small>Gece sohbetlerine katıl</small>
 </div>
@@ -522,7 +697,9 @@ Sohbet Odaları
 <!-- MESAJLAR -->
 <div id="messages" class="page">
 
-<div class="header">Mesajlar</div>
+<div class="header">
+Mesajlar
+</div>
 
 <div class="card">
 
@@ -541,6 +718,10 @@ Sohbet Odaları
 
 </div>
 
+<div class="empty">
+Gerçek özel mesaj sistemi sonraki aşamada eklenecek.
+</div>
+
 </div>
 </div>
 
@@ -550,7 +731,7 @@ Sohbet Odaları
 
 <div class="profile-head">
 
-<div class="profile-avatar">
+<div id="profileAvatar" class="profile-avatar">
 👤
 </div>
 
@@ -562,43 +743,119 @@ Power Chatt Kullanıcısı
 @powerchatt
 </div>
 
+<div id="profileBio" class="bio">
+Henüz biyografi eklenmedi.
+</div>
+
 <div class="stats">
 
 <div>
-<div class="stat-number">0</div>
+<div id="followersCount" class="stat-number">0</div>
 <div class="stat-name">Takipçi</div>
 </div>
 
 <div>
-<div class="stat-number">0</div>
+<div id="followingCount" class="stat-number">0</div>
 <div class="stat-name">Takip</div>
 </div>
 
 <div>
-<div class="stat-number">0</div>
+<div id="friendsCount" class="stat-number">0</div>
 <div class="stat-name">Arkadaş</div>
 </div>
 
 </div>
 
+<button class="button" onclick="toggleProfileEdit()">
+✏️ Profili Düzenle
+</button>
+
 </div>
 
 
+<!-- PROFİL DÜZENLE -->
+<div id="profileEdit" class="profile-edit">
+
+<div class="card-title">
+👤 Profilini Düzenle
+</div>
+
+<input
+id="editName"
+class="input"
+type="text"
+placeholder="Adınız"
+maxlength="40"
+>
+
+<input
+id="editUsername"
+class="input"
+type="text"
+placeholder="Kullanıcı adı"
+maxlength="30"
+>
+
+<textarea
+id="editBio"
+class="textarea"
+placeholder="Kendinden bahset..."
+maxlength="160"
+></textarea>
+
+<div style="font-weight:bold;margin-top:15px;">
+🖼️ Avatar seç
+</div>
+
+<div class="avatar-options">
+
+<button class="avatar-option" onclick="selectAvatar('👤')">👤</button>
+<button class="avatar-option" onclick="selectAvatar('😀')">😀</button>
+<button class="avatar-option" onclick="selectAvatar('😎')">😎</button>
+<button class="avatar-option" onclick="selectAvatar('👨')">👨</button>
+<button class="avatar-option" onclick="selectAvatar('👩')">👩</button>
+<button class="avatar-option" onclick="selectAvatar('🧑')">🧑</button>
+<button class="avatar-option" onclick="selectAvatar('🦁')">🦁</button>
+<button class="avatar-option" onclick="selectAvatar('🐯')">🐯</button>
+<button class="avatar-option" onclick="selectAvatar('🐺')">🐺</button>
+<button class="avatar-option" onclick="selectAvatar('🔥')">🔥</button>
+<button class="avatar-option" onclick="selectAvatar('⭐')">⭐</button>
+<button class="avatar-option" onclick="selectAvatar('💜')">💜</button>
+
+</div>
+
+<button class="button" onclick="saveProfile()">
+💾 Profili Kaydet
+</button>
+
+<button class="button close-button" onclick="toggleProfileEdit()">
+Kapat
+</button>
+
+</div>
+
+
+<!-- COIN -->
 <div class="coin-box">
 
 <div>🪙 Coin Bakiyesi</div>
 
-<div class="coin-number">
+<div id="coinBalance" class="coin-number">
 1.000
 </div>
 
-<button class="button" style="background:white;color:#6847dc;">
+<button
+class="button"
+style="background:white;color:#6847dc;"
+onclick="showToast('Coin satın alma sistemi hazırlanıyor.')"
+>
 Coin Al
 </button>
 
 </div>
 
 
+<!-- OYUNLAR -->
 <div class="card">
 
 <div class="card-title">
@@ -607,15 +864,15 @@ Coin Al
 
 <div class="menu">
 
-<div class="menu-item">
+<div class="menu-item" onclick="showToast('Rocket Game hazırlanıyor.')">
 🚀 Rocket Game
 </div>
 
-<div class="menu-item">
+<div class="menu-item" onclick="showToast('Jackpot hazırlanıyor.')">
 🎰 Jackpot
 </div>
 
-<div class="menu-item">
+<div class="menu-item" onclick="showToast('Şans Oyunu hazırlanıyor.')">
 🍀 Şans Oyunu
 </div>
 
@@ -623,19 +880,20 @@ Coin Al
 </div>
 
 
+<!-- AYARLAR -->
 <div class="card">
 
 <div class="menu">
 
-<div class="menu-item">
+<div class="menu-item" onclick="showToast('Ayarlar bölümü hazırlanıyor.')">
 ⚙️ Ayarlar
 </div>
 
-<div class="menu-item">
+<div class="menu-item" onclick="showToast('Güvenlik bölümü hazırlanıyor.')">
 🔒 Güvenlik
 </div>
 
-<div class="menu-item">
+<div class="menu-item" onclick="showToast('Destek bölümü hazırlanıyor.')">
 🆘 Destek
 </div>
 
@@ -682,10 +940,13 @@ Ben
 </div>
 
 
+<div id="toast" class="toast"></div>
+
+
 <script>
 
 /* =========================
-   FIREBASE AYARLARI
+   FIREBASE
 ========================= */
 
 const firebaseConfig = {
@@ -701,9 +962,13 @@ measurementId:"G-5N3WG4PWDL"
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 const googleProvider =
 new firebase.auth.GoogleAuthProvider();
+
+let currentUser = null;
+let selectedAvatar = "👤";
 
 
 /* =========================
@@ -712,22 +977,46 @@ new firebase.auth.GoogleAuthProvider();
 
 function showError(message){
 
-const box=document.getElementById("errorMessage");
+const box =
+document.getElementById("errorMessage");
 
-box.innerText=message;
-box.style.display="block";
+box.innerText = message;
+box.style.display = "block";
 
-document.getElementById("successMessage").style.display="none";
+document.getElementById(
+"successMessage"
+).style.display = "none";
+
 }
 
 function showSuccess(message){
 
-const box=document.getElementById("successMessage");
+const box =
+document.getElementById("successMessage");
 
-box.innerText=message;
-box.style.display="block";
+box.innerText = message;
+box.style.display = "block";
 
-document.getElementById("errorMessage").style.display="none";
+document.getElementById(
+"errorMessage"
+).style.display = "none";
+
+}
+
+function showToast(message){
+
+const toast =
+document.getElementById("toast");
+
+toast.innerText = message;
+toast.style.display = "block";
+
+setTimeout(function(){
+
+toast.style.display = "none";
+
+},2500);
+
 }
 
 
@@ -737,17 +1026,17 @@ document.getElementById("errorMessage").style.display="none";
 
 function login(){
 
-const email=
+const email =
 document.getElementById("email").value.trim();
 
-const password=
+const password =
 document.getElementById("password").value;
 
 if(!email || !password){
 
 showError("E-posta ve şifre girin.");
-
 return;
+
 }
 
 showError("Giriş yapılıyor...");
@@ -767,18 +1056,31 @@ openApp(result.user);
 
 console.log(error);
 
-let message="Giriş yapılamadı.";
+let message =
+"Giriş yapılamadı.";
 
-if(error.code==="auth/invalid-credential"){
-message="E-posta veya şifre hatalı.";
+if(error.code ===
+"auth/invalid-credential"){
+
+message =
+"E-posta veya şifre hatalı.";
+
 }
 
-if(error.code==="auth/user-not-found"){
-message="Bu e-posta ile kayıtlı kullanıcı bulunamadı.";
+if(error.code ===
+"auth/user-not-found"){
+
+message =
+"Bu e-posta ile kayıtlı kullanıcı bulunamadı.";
+
 }
 
-if(error.code==="auth/wrong-password"){
-message="Şifre hatalı.";
+if(error.code ===
+"auth/wrong-password"){
+
+message =
+"Şifre hatalı.";
+
 }
 
 showError(message);
@@ -794,24 +1096,27 @@ showError(message);
 
 function register(){
 
-const email=
+const email =
 document.getElementById("email").value.trim();
 
-const password=
+const password =
 document.getElementById("password").value;
 
 if(!email || !password){
 
 showError("E-posta ve şifre girin.");
-
 return;
+
 }
 
-if(password.length<6){
+if(password.length < 6){
 
-showError("Şifre en az 6 karakter olmalı.");
+showError(
+"Şifre en az 6 karakter olmalı."
+);
 
 return;
+
 }
 
 showError("Hesap oluşturuluyor...");
@@ -822,7 +1127,9 @@ password
 )
 .then(function(result){
 
-showSuccess("Hesabınız oluşturuldu.");
+showSuccess(
+"Hesabınız oluşturuldu."
+);
 
 openApp(result.user);
 
@@ -831,18 +1138,31 @@ openApp(result.user);
 
 console.log(error);
 
-let message="Kayıt oluşturulamadı.";
+let message =
+"Kayıt oluşturulamadı.";
 
-if(error.code==="auth/email-already-in-use"){
-message="Bu e-posta zaten kayıtlı.";
+if(error.code ===
+"auth/email-already-in-use"){
+
+message =
+"Bu e-posta zaten kayıtlı.";
+
 }
 
-if(error.code==="auth/invalid-email"){
-message="Geçerli bir e-posta adresi girin.";
+if(error.code ===
+"auth/invalid-email"){
+
+message =
+"Geçerli bir e-posta adresi girin.";
+
 }
 
-if(error.code==="auth/weak-password"){
-message="Şifre çok zayıf.";
+if(error.code ===
+"auth/weak-password"){
+
+message =
+"Şifre çok zayıf.";
+
 }
 
 showError(message);
@@ -858,18 +1178,22 @@ showError(message);
 
 function googleLogin(){
 
-showError("Google ile giriş açılıyor...");
+showError(
+"Google ile giriş açılıyor..."
+);
 
-auth.signInWithPopup(googleProvider)
-
+auth.signInWithPopup(
+googleProvider
+)
 .then(function(result){
 
-showSuccess("Google ile giriş başarılı.");
+showSuccess(
+"Google ile giriş başarılı."
+);
 
 openApp(result.user);
 
 })
-
 .catch(function(error){
 
 console.log(error);
@@ -877,7 +1201,173 @@ console.log(error);
 showError(
 "Google ile giriş yapılamadı: "
 +
-(error.message || "Bilinmeyen hata")
+(error.message ||
+"Bilinmeyen hata")
+);
+
+});
+
+}
+
+
+/* =========================
+   KULLANICI BELGESİ
+========================= */
+
+function createUserDocument(user){
+
+if(!user){
+return Promise.resolve();
+}
+
+const ref =
+db.collection("users")
+.doc(user.uid);
+
+return ref.get()
+.then(function(snapshot){
+
+if(snapshot.exists){
+
+return;
+
+}
+
+const defaultName =
+user.displayName ||
+"Power Chatt Kullanıcısı";
+
+const defaultUsername =
+user.email
+?
+user.email.split("@")[0]
+:
+"powerchatt";
+
+return ref.set({
+
+uid:user.uid,
+
+name:defaultName,
+
+username:defaultUsername,
+
+bio:"",
+
+avatar:"👤",
+
+email:user.email || "",
+
+followers:0,
+
+following:0,
+
+friends:0,
+
+coins:1000,
+
+createdAt:
+firebase.firestore.FieldValue.serverTimestamp(),
+
+updatedAt:
+firebase.firestore.FieldValue.serverTimestamp()
+
+});
+
+})
+.catch(function(error){
+
+console.log(
+"Kullanıcı belgesi oluşturulamadı:",
+error
+);
+
+});
+
+}
+
+
+/* =========================
+   PROFİLİ FIRESTORE'DAN YÜKLE
+========================= */
+
+function loadProfile(user){
+
+if(!user){
+return;
+}
+
+db.collection("users")
+.doc(user.uid)
+.get()
+.then(function(snapshot){
+
+if(!snapshot.exists){
+
+return createUserDocument(user)
+.then(function(){
+
+return loadProfile(user);
+
+});
+
+}
+
+const data =
+snapshot.data();
+
+document.getElementById(
+"profileName"
+).innerText =
+data.name ||
+"Power Chatt Kullanıcısı";
+
+document.getElementById(
+"profileUsername"
+).innerText =
+"@" +
+(data.username ||
+"powerchatt");
+
+document.getElementById(
+"profileBio"
+).innerText =
+data.bio ||
+"Henüz biyografi eklenmedi.";
+
+document.getElementById(
+"profileAvatar"
+).innerText =
+data.avatar ||
+"👤";
+
+document.getElementById(
+"followersCount"
+).innerText =
+data.followers || 0;
+
+document.getElementById(
+"followingCount"
+).innerText =
+data.following || 0;
+
+document.getElementById(
+"friendsCount"
+).innerText =
+data.friends || 0;
+
+document.getElementById(
+"coinBalance"
+).innerText =
+Number(data.coins || 0)
+.toLocaleString("tr-TR");
+
+})
+.catch(function(error){
+
+console.log(
+"Profil yükleme hatası:",
+error
 );
 
 });
@@ -891,6 +1381,8 @@ showError(
 
 function openApp(user){
 
+currentUser = user;
+
 document
 .getElementById("loginPage")
 .classList.add("hidden");
@@ -899,21 +1391,12 @@ document
 .getElementById("appPage")
 .classList.remove("hidden");
 
-document
-.getElementById("profileName")
-.innerText =
-user.displayName ||
-"Power Chatt Kullanıcısı";
+createUserDocument(user)
+.then(function(){
 
-if(user.email){
+loadProfile(user);
 
-document
-.getElementById("profileUsername")
-.innerText =
-"@" +
-user.email.split("@")[0];
-
-}
+});
 
 showPage("home");
 
@@ -921,30 +1404,78 @@ showPage("home");
 
 
 /* =========================
-   ÇIKIŞ
+   PROFİL DÜZENLEMEYİ AÇ
 ========================= */
 
-function logout(){
+function toggleProfileEdit(){
 
-auth.signOut()
+const box =
+document.getElementById(
+"profileEdit"
+);
 
-.then(function(){
+if(box.classList.contains("active")){
+
+box.classList.remove("active");
+
+return;
+
+}
+
+box.classList.add("active");
+
+if(!currentUser){
+return;
+}
+
+db.collection("users")
+.doc(currentUser.uid)
+.get()
+.then(function(snapshot){
+
+if(!snapshot.exists){
+return;
+}
+
+const data =
+snapshot.data();
+
+document.getElementById(
+"editName"
+).value =
+data.name || "";
+
+document.getElementById(
+"editUsername"
+).value =
+data.username || "";
+
+document.getElementById(
+"editBio"
+).value =
+data.bio || "";
+
+selectedAvatar =
+data.avatar || "👤";
 
 document
-.getElementById("appPage")
-.classList.add("hidden");
+.querySelectorAll(".avatar-option")
+.forEach(function(button){
 
-document
-.getElementById("loginPage")
-.classList.remove("hidden");
+button.classList.remove(
+"selected"
+);
 
-document
-.getElementById("email")
-.value="";
+if(button.innerText ===
+selectedAvatar){
 
-document
-.getElementById("password")
-.value="";
+button.classList.add(
+"selected"
+);
+
+}
+
+});
 
 });
 
@@ -952,7 +1483,467 @@ document
 
 
 /* =========================
-   SAYFA GEÇİŞLERİ
+   AVATAR SEÇ
+========================= */
+
+function selectAvatar(avatar){
+
+selectedAvatar = avatar;
+
+document
+.querySelectorAll(".avatar-option")
+.forEach(function(button){
+
+button.classList.remove(
+"selected"
+);
+
+if(button.innerText === avatar){
+
+button.classList.add(
+"selected"
+);
+
+}
+
+});
+
+}
+
+
+/* =========================
+   PROFİLİ KAYDET
+========================= */
+
+function saveProfile(){
+
+if(!currentUser){
+
+showToast(
+"Önce giriş yapmalısınız."
+);
+
+return;
+
+}
+
+const name =
+document.getElementById(
+"editName"
+).value.trim();
+
+let username =
+document.getElementById(
+"editUsername"
+).value.trim();
+
+const bio =
+document.getElementById(
+"editBio"
+).value.trim();
+
+if(!name){
+
+showToast(
+"Adınızı girin."
+);
+
+return;
+
+}
+
+if(!username){
+
+showToast(
+"Kullanıcı adı girin."
+);
+
+return;
+
+}
+
+/*
+   Kullanıcı adında sadece
+   harf, rakam, alt çizgi
+   ve nokta kullanıyoruz.
+*/
+
+username =
+username
+.replace(/^@/,"")
+.replace(/[^a-zA-Z0-9._]/g,"")
+.toLowerCase();
+
+if(username.length < 3){
+
+showToast(
+"Kullanıcı adı en az 3 karakter olmalı."
+);
+
+return;
+
+}
+
+const data = {
+
+name:name,
+
+username:username,
+
+bio:bio,
+
+avatar:selectedAvatar,
+
+updatedAt:
+firebase.firestore.FieldValue.serverTimestamp()
+
+};
+
+showToast(
+"Profil kaydediliyor..."
+);
+
+db.collection("users")
+.doc(currentUser.uid)
+.set(data,{merge:true})
+.then(function(){
+
+document.getElementById(
+"profileName"
+).innerText = name;
+
+document.getElementById(
+"profileUsername"
+).innerText =
+"@" + username;
+
+document.getElementById(
+"profileBio"
+).innerText =
+bio ||
+"Henüz biyografi eklenmedi.";
+
+document.getElementById(
+"profileAvatar"
+).innerText =
+selectedAvatar;
+
+document.getElementById(
+"profileEdit"
+).classList.remove(
+"active"
+);
+
+showToast(
+"Profil başarıyla kaydedildi."
+);
+
+})
+.catch(function(error){
+
+console.log(error);
+
+showToast(
+"Profil kaydedilemedi: "
++
+(error.message ||
+"Bilinmeyen hata")
+);
+
+});
+
+}
+
+
+/* =========================
+   ANILAR
+========================= */
+
+function shareMemory(){
+
+if(!currentUser){
+
+showToast(
+"Önce giriş yapmalısınız."
+);
+
+return;
+
+}
+
+const textarea =
+document.getElementById(
+"memoryText"
+);
+
+const text =
+textarea.value.trim();
+
+if(!text){
+
+showToast(
+"Önce bir anı yazın."
+);
+
+return;
+
+}
+
+db.collection("memories")
+.add({
+
+uid:currentUser.uid,
+
+name:
+currentUser.displayName ||
+currentUser.email ||
+"Power Chatt Kullanıcısı",
+
+email:
+currentUser.email || "",
+
+text:text,
+
+createdAt:
+firebase.firestore.FieldValue.serverTimestamp()
+
+})
+.then(function(){
+
+textarea.value = "";
+
+showToast(
+"Anın başarıyla paylaşıldı."
+);
+
+loadMemories();
+
+})
+.catch(function(error){
+
+console.log(error);
+
+showToast(
+"Anı paylaşılamadı: "
++
+(error.message ||
+"Bilinmeyen hata")
+);
+
+});
+
+}
+
+
+/* =========================
+   ANILARI YÜKLE
+========================= */
+
+function loadMemories(){
+
+const list =
+document.getElementById(
+"memoryList"
+);
+
+if(!list){
+return;
+}
+
+list.innerHTML =
+'<div class="loading">Anılar yükleniyor...</div>';
+
+db.collection("memories")
+.orderBy("createdAt","desc")
+.limit(50)
+.get()
+.then(function(snapshot){
+
+if(snapshot.empty){
+
+list.innerHTML =
+'<div class="empty">Henüz anı paylaşılmamış.</div>';
+
+return;
+
+}
+
+list.innerHTML = "";
+
+snapshot.forEach(function(doc){
+
+const data =
+doc.data();
+
+const memory =
+document.createElement("div");
+
+memory.className =
+"memory";
+
+const top =
+document.createElement("div");
+
+top.className =
+"memory-top";
+
+const avatar =
+document.createElement("div");
+
+avatar.className =
+"avatar";
+
+avatar.innerText = "👤";
+
+const author =
+document.createElement("div");
+
+const name =
+document.createElement("div");
+
+name.className =
+"memory-author";
+
+name.innerText =
+data.name ||
+"Power Chatt Kullanıcısı";
+
+const date =
+document.createElement("div");
+
+date.className =
+"memory-date";
+
+if(data.createdAt){
+
+const d =
+data.createdAt.toDate();
+
+date.innerText =
+d.toLocaleString(
+"tr-TR"
+);
+
+}
+else{
+
+date.innerText =
+"Az önce";
+
+}
+
+author.appendChild(name);
+author.appendChild(date);
+
+top.appendChild(avatar);
+top.appendChild(author);
+
+const text =
+document.createElement("div");
+
+text.className =
+"memory-text";
+
+text.innerText =
+data.text || "";
+
+memory.appendChild(top);
+memory.appendChild(text);
+
+if(
+currentUser &&
+data.uid === currentUser.uid
+){
+
+const deleteButton =
+document.createElement("button");
+
+deleteButton.className =
+"delete-memory";
+
+deleteButton.innerText =
+"🗑️ Sil";
+
+deleteButton.onclick =
+function(){
+
+deleteMemory(doc.id);
+
+};
+
+memory.appendChild(
+deleteButton
+);
+
+}
+
+list.appendChild(memory);
+
+});
+
+})
+.catch(function(error){
+
+console.log(
+"Anılar yüklenemedi:",
+error
+);
+
+list.innerHTML =
+'<div class="empty">Anılar yüklenemedi.</div>';
+
+});
+
+}
+
+
+/* =========================
+   ANILARI SİL
+========================= */
+
+function deleteMemory(id){
+
+if(!currentUser){
+return;
+}
+
+if(
+!confirm(
+"Bu anıyı silmek istediğinize emin misiniz?"
+)
+){
+
+return;
+
+}
+
+db.collection("memories")
+.doc(id)
+.delete()
+.then(function(){
+
+showToast(
+"Anı silindi."
+);
+
+loadMemories();
+
+})
+.catch(function(error){
+
+console.log(error);
+
+showToast(
+"Anı silinemedi."
+);
+
+});
+
+}
+
+
+/* =========================
+   SAYFA GEÇİŞİ
 ========================= */
 
 function showPage(page){
@@ -965,12 +1956,25 @@ p.classList.remove("active");
 
 });
 
-const selected=
+const selected =
 document.getElementById(page);
 
 if(selected){
 
 selected.classList.add("active");
+
+}
+
+if(page === "memories"){
+
+loadMemories();
+
+}
+
+if(page === "profile" &&
+currentUser){
+
+loadProfile(currentUser);
 
 }
 
@@ -980,18 +1984,69 @@ window.scrollTo(0,0);
 
 
 /* =========================
+   ÇIKIŞ
+========================= */
+
+function logout(){
+
+auth.signOut()
+.then(function(){
+
+currentUser = null;
+
+document
+.getElementById("appPage")
+.classList.add("hidden");
+
+document
+.getElementById("loginPage")
+.classList.remove("hidden");
+
+document.getElementById(
+"email"
+).value = "";
+
+document.getElementById(
+"password"
+).value = "";
+
+showSuccess(
+"Çıkış yapıldı."
+);
+
+});
+
+}
+
+
+/* =========================
    OTURUM KONTROLÜ
 ========================= */
 
-auth.onAuthStateChanged(function(user){
+auth.onAuthStateChanged(
+function(user){
 
 if(user){
 
 openApp(user);
 
 }
+else{
 
-});
+currentUser = null;
+
+document
+.getElementById("appPage")
+.classList.add("hidden");
+
+document
+.getElementById("loginPage")
+.classList.remove("hidden");
+
+}
+
+}
+);
 
 </script>
 
