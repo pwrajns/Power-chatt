@@ -9,217 +9,351 @@
 *{box-sizing:border-box}
 
 body{
-  margin:0;
-  background:#f7f7f7;
-  font-family:Arial,sans-serif;
-  color:#222;
+margin:0;
+background:#f5f6fa;
+font-family:Arial,sans-serif;
+color:#222;
 }
 
 .app{
-  max-width:500px;
-  margin:auto;
-  min-height:100vh;
-  background:#fff;
-  padding-bottom:80px;
-}
-
-.header{
-  padding:22px 20px 12px;
-  font-size:27px;
-  font-weight:bold;
-}
-
-.card{
-  margin:10px 15px;
-  padding:18px;
-  border-radius:20px;
-  background:#fff;
-  box-shadow:0 2px 12px #ddd;
-}
-
-.card-title{
-  font-size:22px;
-  margin-bottom:18px;
-}
-
-.quick{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  text-align:center;
-}
-
-.quick-item{
-  font-size:14px;
-}
-
-.icon{
-  width:58px;
-  height:58px;
-  margin:auto auto 8px;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:29px;
-  background:#eee;
-}
-
-.games{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px 8px;
-}
-
-.game{
-  text-align:center;
-  font-size:13px;
-  min-width:0;
-}
-
-.game-icon{
-  width:58px;
-  height:58px;
-  margin:auto auto 7px;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  background:linear-gradient(135deg,#763cff,#ff4d9d);
-  box-shadow:0 4px 10px #ccc;
-}
-
-.game-name{
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.menu-list{
-  display:flex;
-  flex-direction:column;
-  gap:25px;
-}
-
-.menu-item{
-  display:flex;
-  align-items:center;
-  gap:17px;
-  font-size:18px;
-}
-
-.menu-icon{
-  width:35px;
-  text-align:center;
-  font-size:25px;
-}
-
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:500px;
-  height:72px;
-  background:white;
-  border-top:1px solid #ddd;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  z-index:10;
-}
-
-.bottom-item{
-  text-align:center;
-  padding-top:9px;
-  font-size:12px;
-}
-
-.bottom-icon{
-  font-size:25px;
-  display:block;
-  margin-bottom:3px;
+max-width:500px;
+margin:auto;
+min-height:100vh;
+background:#fff;
+padding-bottom:90px;
 }
 
 .page{
-  display:none;
+display:none;
+min-height:100vh;
 }
 
 .page.active{
-  display:block;
+display:block;
 }
 
-/* ROKET */
-.rocket-page{
-  min-height:calc(100vh - 72px);
-  background:linear-gradient(#120b35,#050510);
-  color:white;
-  padding:20px;
-  text-align:center;
+.header{
+padding:22px 20px 12px;
+font-size:27px;
+font-weight:bold;
 }
 
-.back{
-  text-align:left;
-  font-size:18px;
-  margin-bottom:25px;
+.card{
+margin:10px 15px;
+padding:18px;
+border-radius:20px;
+background:#fff;
+box-shadow:0 2px 12px #ddd;
 }
 
-.rocket-title{
-  font-size:28px;
-  font-weight:bold;
+.card-title{
+font-size:21px;
+font-weight:bold;
+margin-bottom:18px;
 }
 
-.multiplier{
-  font-size:58px;
-  font-weight:bold;
-  margin-top:35px;
+.quick{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+text-align:center;
 }
 
-.rocket-area{
-  height:300px;
-  position:relative;
-  overflow:hidden;
-  margin-top:10px;
-  border-radius:25px;
-  background:
-    radial-gradient(circle at 20% 20%,#fff 1px,transparent 2px),
-    radial-gradient(circle at 70% 40%,#fff 1px,transparent 2px),
-    radial-gradient(circle at 40% 70%,#fff 1px,transparent 2px),
-    #080817;
+.quick-item{
+font-size:13px;
 }
 
-.rocket{
-  position:absolute;
-  left:50%;
-  bottom:35px;
-  transform:translateX(-50%);
-  font-size:65px;
-  transition:bottom .4s;
+.icon{
+width:58px;
+height:58px;
+margin:auto auto 8px;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+background:#eee;
 }
 
-.start-btn{
-  margin-top:20px;
-  width:100%;
-  padding:17px;
-  border:0;
-  border-radius:15px;
-  background:#ff4d6d;
-  color:#fff;
-  font-size:19px;
-  font-weight:bold;
+.users{
+display:flex;
+flex-direction:column;
+gap:12px;
 }
 
-.coin{
-  margin-top:15px;
-  font-size:17px;
+.user{
+display:flex;
+align-items:center;
+gap:12px;
+padding:12px;
+border-radius:15px;
+background:#f7f7fb;
+}
+
+.avatar{
+width:48px;
+height:48px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+background:#e8ddff;
+}
+
+.user-name{
+font-weight:bold;
+}
+
+.user-status{
+font-size:12px;
+color:#777;
+margin-top:4px;
+}
+
+.rooms{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.room{
+padding:18px;
+border-radius:18px;
+background:linear-gradient(135deg,#6847dc,#9b6cff);
+color:white;
+font-size:18px;
+font-weight:bold;
+}
+
+.room small{
+display:block;
+font-size:13px;
+font-weight:normal;
+margin-top:7px;
+opacity:.9;
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+width:100%;
+max-width:500px;
+height:75px;
+background:white;
+border-top:1px solid #ddd;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+z-index:100;
+}
+
+.bottom-item{
+text-align:center;
+padding-top:8px;
+font-size:11px;
+cursor:pointer;
+}
+
+.bottom-icon{
+font-size:24px;
+display:block;
+margin-bottom:3px;
+}
+
+.profile-head{
+text-align:center;
+padding:25px 15px;
+}
+
+.profile-avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+background:#e8ddff;
+}
+
+.profile-name{
+font-size:22px;
+font-weight:bold;
+margin-top:12px;
+}
+
+.username{
+color:#777;
+margin-top:5px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+text-align:center;
+margin-top:20px;
+}
+
+.stat-number{
+font-size:20px;
+font-weight:bold;
+}
+
+.stat-name{
+font-size:12px;
+color:#777;
+margin-top:4px;
+}
+
+.coin-box{
+margin:15px;
+padding:20px;
+border-radius:20px;
+background:linear-gradient(135deg,#6847dc,#9b6cff);
+color:white;
+}
+
+.coin-number{
+font-size:28px;
+font-weight:bold;
+}
+
+.button{
+width:100%;
+border:0;
+border-radius:14px;
+padding:15px;
+margin-top:12px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+background:#6847dc;
+color:white;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+padding:15px;
+}
+
+.menu-item{
+padding:17px;
+border-radius:15px;
+background:#f7f7fa;
+font-size:17px;
+cursor:pointer;
+}
+
+.login{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:25px;
+background:linear-gradient(135deg,#6847dc,#9b6cff);
+}
+
+.login-box{
+width:100%;
+max-width:400px;
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 10px 30px #5555;
+}
+
+.login-title{
+font-size:30px;
+font-weight:bold;
+text-align:center;
+margin-bottom:8px;
+}
+
+.login-sub{
+text-align:center;
+color:#777;
+margin-bottom:25px;
+}
+
+.input{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:12px;
+margin-bottom:12px;
+font-size:16px;
+}
+
+.google{
+background:#fff;
+color:#222;
+border:1px solid #ddd;
+}
+
+.logout{
+background:#e53935;
+}
+
+.hidden{
+display:none!important;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- GİRİŞ -->
+<div id="loginPage" class="login">
+
+<div class="login-box">
+
+<div class="login-title">
+Power Chatt
+</div>
+
+<div class="login-sub">
+Yeni insanlarla tanış, sohbet et ve eğlen.
+</div>
+
+<input
+id="email"
+class="input"
+type="email"
+placeholder="E-posta"
+>
+
+<input
+id="password"
+class="input"
+type="password"
+placeholder="Şifre"
+>
+
+<button class="button" onclick="login()">
+Giriş Yap
+</button>
+
+<button class="button" onclick="register()">
+Kayıt Ol
+</button>
+
+<button class="button google" onclick="googleLogin()">
+🔵 Google ile giriş yap
+</button>
+
+</div>
+
+</div>
+
+
+<!-- UYGULAMA -->
+<div id="appPage" class="app hidden">
+
 
 <!-- ANA SAYFA -->
 <div id="home" class="page active">
@@ -229,9 +363,13 @@ Power Chatt
 </div>
 
 <div class="card">
-<div class="card-title">Sık kullanılanlar</div>
+
+<div class="card-title">
+Sık kullanılanlar
+</div>
 
 <div class="quick">
+
 <div class="quick-item">
 <div class="icon">💎</div>
 Elmas
@@ -251,8 +389,361 @@ Görevler
 <div class="icon">👥</div>
 Grup
 </div>
+
 </div>
 </div>
 
 
-<div
+<div class="card">
+
+<div class="card-title">
+Aktif Kullanıcılar
+</div>
+
+<div class="users">
+
+<div class="user">
+<div class="avatar">👩</div>
+<div>
+<div class="user-name">Ayşe</div>
+<div class="user-status">🟢 Çevrimiçi</div>
+</div>
+</div>
+
+<div class="user">
+<div class="avatar">👨</div>
+<div>
+<div class="user-name">Mert</div>
+<div class="user-status">🟢 Çevrimiçi</div>
+</div>
+</div>
+
+<div class="user">
+<div class="avatar">👩</div>
+<div>
+<div class="user-name">Elif</div>
+<div class="user-status">🟢 Çevrimiçi</div>
+</div>
+</div>
+
+<div class="user">
+<div class="avatar">👨</div>
+<div>
+<div class="user-name">Kerem</div>
+<div class="user-status">🟢 Çevrimiçi</div>
+</div>
+</div>
+
+<div class="user">
+<div class="avatar">👩</div>
+<div>
+<div class="user-name">Selin</div>
+<div class="user-status">🟢 Çevrimiçi</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+<!-- ANILAR -->
+<div id="memories" class="page">
+
+<div class="header">
+Anılar
+</div>
+
+<div class="card">
+
+<div class="card-title">
+📸 Anılarını paylaş
+</div>
+
+<p>
+Fotoğraf ve güzel anlarını Power Chatt'te paylaş.
+</p>
+
+<button class="button">
+Anı Ekle
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ODALAR -->
+<div id="rooms" class="page">
+
+<div class="header">
+Odalar
+</div>
+
+<div class="card">
+
+<div class="card-title">
+Sohbet Odaları
+</div>
+
+<div class="rooms">
+
+<div class="room">
+🇹🇷 Türkiye Sohbet
+<small>Aktif kullanıcılarla sohbet et</small>
+</div>
+
+<div class="room">
+🇦🇿 Azerbaycan Sohbet
+<small>Yeni insanlarla tanış</small>
+</div>
+
+<div class="room">
+🌙 Gece Sohbeti
+<small>Gece sohbetlerine katıl</small>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MESAJLAR -->
+<div id="messages" class="page">
+
+<div class="header">
+Mesajlar
+</div>
+
+<div class="card">
+
+<div class="card-title">
+💬 Mesajların
+</div>
+
+<div class="user">
+<div class="avatar">👩</div>
+<div>
+<div class="user-name">Ayşe</div>
+<div class="user-status">Merhaba 👋</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- BEN -->
+<div id="profile" class="page">
+
+<div class="profile-head">
+
+<div class="profile-avatar">
+👤
+</div>
+
+<div class="profile-name">
+Power Chatt Kullanıcısı
+</div>
+
+<div class="username">
+@powerchatt
+</div>
+
+<div class="stats">
+
+<div>
+<div class="stat-number">0</div>
+<div class="stat-name">Takipçi</div>
+</div>
+
+<div>
+<div class="stat-number">0</div>
+<div class="stat-name">Takip</div>
+</div>
+
+<div>
+<div class="stat-number">0</div>
+<div class="stat-name">Arkadaş</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="coin-box">
+
+<div>
+🪙 Coin Bakiyesi
+</div>
+
+<div class="coin-number">
+1.000
+</div>
+
+<button class="button" style="background:white;color:#6847dc;">
+Coin Al
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+🎮 Oyunlar
+</div>
+
+<div class="menu">
+
+<div class="menu-item">
+🚀 Rocket Game
+</div>
+
+<div class="menu-item">
+🎰 Jackpot
+</div>
+
+<div class="menu-item">
+🍀 Şans Oyunu
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="menu">
+
+<div class="menu-item">
+⚙️ Ayarlar
+</div>
+
+<div class="menu-item">
+🔒 Güvenlik
+</div>
+
+<div class="menu-item">
+🆘 Destek
+</div>
+
+<button class="button logout" onclick="logout()">
+Çıkış Yap
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ALT MENÜ -->
+<div class="bottom">
+
+<div class="bottom-item" onclick="showPage('home')">
+<span class="bottom-icon">🏠</span>
+Ana Sayfa
+</div>
+
+<div class="bottom-item" onclick="showPage('memories')">
+<span class="bottom-icon">📸</span>
+Anılar
+</div>
+
+<div class="bottom-item" onclick="showPage('rooms')">
+<span class="bottom-icon">💬</span>
+Odalar
+</div>
+
+<div class="bottom-item" onclick="showPage('messages')">
+<span class="bottom-icon">✉️</span>
+Mesajlar
+</div>
+
+<div class="bottom-item" onclick="showPage('profile')">
+<span class="bottom-icon">👤</span>
+Ben
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function showPage(page){
+
+document.querySelectorAll(".page").forEach(function(p){
+p.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+window.scrollTo(0,0);
+
+}
+
+
+function login(){
+
+var email=document.getElementById("email").value;
+var password=document.getElementById("password").value;
+
+if(!email || !password){
+
+alert("E-posta ve şifre girin.");
+
+return;
+}
+
+document.getElementById("loginPage").classList.add("hidden");
+document.getElementById("appPage").classList.remove("hidden");
+
+}
+
+
+function register(){
+
+var email=document.getElementById("email").value;
+var password=document.getElementById("password").value;
+
+if(!email || !password){
+
+alert("E-posta ve şifre girin.");
+
+return;
+}
+
+alert("Kayıt ekranı hazır. Firebase bağlantısını bir sonraki adımda ekleyeceğiz.");
+
+}
+
+
+function googleLogin(){
+
+alert("Google girişini Firebase'e bağlayacağız.");
+
+}
+
+
+function logout(){
+
+document.getElementById("appPage").classList.add("hidden");
+document.getElementById("loginPage").classList.remove("hidden");
+
+}
+
+
+</script>
+
+</body>
+</html>
