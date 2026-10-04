@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Power Chatt</title>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
 <style>
 *{box-sizing:border-box}
 
@@ -15,6 +19,8 @@ font-family:Arial,sans-serif;
 color:#222;
 }
 
+.hidden{display:none!important}
+
 .app{
 max-width:500px;
 margin:auto;
@@ -23,14 +29,8 @@ background:#fff;
 padding-bottom:90px;
 }
 
-.page{
-display:none;
-min-height:100vh;
-}
-
-.page.active{
-display:block;
-}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
 
 .header{
 padding:22px 20px 12px;
@@ -59,9 +59,7 @@ gap:10px;
 text-align:center;
 }
 
-.quick-item{
-font-size:13px;
-}
+.quick-item{font-size:13px}
 
 .icon{
 width:58px;
@@ -101,9 +99,7 @@ font-size:24px;
 background:#e8ddff;
 }
 
-.user-name{
-font-weight:bold;
-}
+.user-name{font-weight:bold}
 
 .user-status{
 font-size:12px;
@@ -290,17 +286,31 @@ font-size:16px;
 }
 
 .google{
-background:#fff;
+background:white;
 color:#222;
 border:1px solid #ddd;
 }
 
-.logout{
-background:#e53935;
+.logout{background:#e53935}
+
+.error{
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+background:#ffe5e5;
+color:#c62828;
+font-size:14px;
+display:none;
 }
 
-.hidden{
-display:none!important;
+.success{
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+background:#e5f7e8;
+color:#218838;
+font-size:14px;
+display:none;
 }
 </style>
 </head>
@@ -325,6 +335,7 @@ id="email"
 class="input"
 type="email"
 placeholder="E-posta"
+autocomplete="email"
 >
 
 <input
@@ -332,6 +343,7 @@ id="password"
 class="input"
 type="password"
 placeholder="Şifre"
+autocomplete="current-password"
 >
 
 <button class="button" onclick="login()">
@@ -346,8 +358,10 @@ Kayıt Ol
 🔵 Google ile giriş yap
 </button>
 
-</div>
+<div id="errorMessage" class="error"></div>
+<div id="successMessage" class="success"></div>
 
+</div>
 </div>
 
 
@@ -451,9 +465,7 @@ Aktif Kullanıcılar
 <!-- ANILAR -->
 <div id="memories" class="page">
 
-<div class="header">
-Anılar
-</div>
+<div class="header">Anılar</div>
 
 <div class="card">
 
@@ -477,9 +489,7 @@ Anı Ekle
 <!-- ODALAR -->
 <div id="rooms" class="page">
 
-<div class="header">
-Odalar
-</div>
+<div class="header">Odalar</div>
 
 <div class="card">
 
@@ -505,18 +515,14 @@ Sohbet Odaları
 </div>
 
 </div>
-
 </div>
-
 </div>
 
 
 <!-- MESAJLAR -->
 <div id="messages" class="page">
 
-<div class="header">
-Mesajlar
-</div>
+<div class="header">Mesajlar</div>
 
 <div class="card">
 
@@ -525,15 +531,17 @@ Mesajlar
 </div>
 
 <div class="user">
+
 <div class="avatar">👩</div>
+
 <div>
 <div class="user-name">Ayşe</div>
 <div class="user-status">Merhaba 👋</div>
 </div>
-</div>
 
 </div>
 
+</div>
 </div>
 
 
@@ -546,11 +554,11 @@ Mesajlar
 👤
 </div>
 
-<div class="profile-name">
+<div id="profileName" class="profile-name">
 Power Chatt Kullanıcısı
 </div>
 
-<div class="username">
+<div id="profileUsername" class="username">
 @powerchatt
 </div>
 
@@ -578,9 +586,7 @@ Power Chatt Kullanıcısı
 
 <div class="coin-box">
 
-<div>
-🪙 Coin Bakiyesi
-</div>
+<div>🪙 Coin Bakiyesi</div>
 
 <div class="coin-number">
 1.000
@@ -614,7 +620,6 @@ Coin Al
 </div>
 
 </div>
-
 </div>
 
 
@@ -639,7 +644,6 @@ Coin Al
 </button>
 
 </div>
-
 </div>
 
 </div>
@@ -680,68 +684,314 @@ Ben
 
 <script>
 
-function showPage(page){
+/* =========================
+   FIREBASE AYARLARI
+========================= */
 
-document.querySelectorAll(".page").forEach(function(p){
-p.classList.remove("active");
+const firebaseConfig = {
+apiKey:"AIzaSyAh6U4MpIjUtE3ncqZkkYkskZHSPrM6wXU",
+authDomain:"power-chatt-a72f7.firebaseapp.com",
+projectId:"power-chatt-a72f7",
+storageBucket:"power-chatt-a72f7.firebasestorage.app",
+messagingSenderId:"791826290270",
+appId:"1:791826290270:web:6f13cff199edf3176dc6cf",
+measurementId:"G-5N3WG4PWDL"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+const googleProvider =
+new firebase.auth.GoogleAuthProvider();
+
+
+/* =========================
+   MESAJLAR
+========================= */
+
+function showError(message){
+
+const box=document.getElementById("errorMessage");
+
+box.innerText=message;
+box.style.display="block";
+
+document.getElementById("successMessage").style.display="none";
+}
+
+function showSuccess(message){
+
+const box=document.getElementById("successMessage");
+
+box.innerText=message;
+box.style.display="block";
+
+document.getElementById("errorMessage").style.display="none";
+}
+
+
+/* =========================
+   GİRİŞ
+========================= */
+
+function login(){
+
+const email=
+document.getElementById("email").value.trim();
+
+const password=
+document.getElementById("password").value;
+
+if(!email || !password){
+
+showError("E-posta ve şifre girin.");
+
+return;
+}
+
+showError("Giriş yapılıyor...");
+
+auth.signInWithEmailAndPassword(
+email,
+password
+)
+.then(function(result){
+
+showSuccess("Giriş başarılı.");
+
+openApp(result.user);
+
+})
+.catch(function(error){
+
+console.log(error);
+
+let message="Giriş yapılamadı.";
+
+if(error.code==="auth/invalid-credential"){
+message="E-posta veya şifre hatalı.";
+}
+
+if(error.code==="auth/user-not-found"){
+message="Bu e-posta ile kayıtlı kullanıcı bulunamadı.";
+}
+
+if(error.code==="auth/wrong-password"){
+message="Şifre hatalı.";
+}
+
+showError(message);
+
 });
 
-document.getElementById(page).classList.add("active");
+}
+
+
+/* =========================
+   KAYIT
+========================= */
+
+function register(){
+
+const email=
+document.getElementById("email").value.trim();
+
+const password=
+document.getElementById("password").value;
+
+if(!email || !password){
+
+showError("E-posta ve şifre girin.");
+
+return;
+}
+
+if(password.length<6){
+
+showError("Şifre en az 6 karakter olmalı.");
+
+return;
+}
+
+showError("Hesap oluşturuluyor...");
+
+auth.createUserWithEmailAndPassword(
+email,
+password
+)
+.then(function(result){
+
+showSuccess("Hesabınız oluşturuldu.");
+
+openApp(result.user);
+
+})
+.catch(function(error){
+
+console.log(error);
+
+let message="Kayıt oluşturulamadı.";
+
+if(error.code==="auth/email-already-in-use"){
+message="Bu e-posta zaten kayıtlı.";
+}
+
+if(error.code==="auth/invalid-email"){
+message="Geçerli bir e-posta adresi girin.";
+}
+
+if(error.code==="auth/weak-password"){
+message="Şifre çok zayıf.";
+}
+
+showError(message);
+
+});
+
+}
+
+
+/* =========================
+   GOOGLE
+========================= */
+
+function googleLogin(){
+
+showError("Google ile giriş açılıyor...");
+
+auth.signInWithPopup(googleProvider)
+
+.then(function(result){
+
+showSuccess("Google ile giriş başarılı.");
+
+openApp(result.user);
+
+})
+
+.catch(function(error){
+
+console.log(error);
+
+showError(
+"Google ile giriş yapılamadı: "
++
+(error.message || "Bilinmeyen hata")
+);
+
+});
+
+}
+
+
+/* =========================
+   UYGULAMAYI AÇ
+========================= */
+
+function openApp(user){
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("appPage")
+.classList.remove("hidden");
+
+document
+.getElementById("profileName")
+.innerText =
+user.displayName ||
+"Power Chatt Kullanıcısı";
+
+if(user.email){
+
+document
+.getElementById("profileUsername")
+.innerText =
+"@" +
+user.email.split("@")[0];
+
+}
+
+showPage("home");
+
+}
+
+
+/* =========================
+   ÇIKIŞ
+========================= */
+
+function logout(){
+
+auth.signOut()
+
+.then(function(){
+
+document
+.getElementById("appPage")
+.classList.add("hidden");
+
+document
+.getElementById("loginPage")
+.classList.remove("hidden");
+
+document
+.getElementById("email")
+.value="";
+
+document
+.getElementById("password")
+.value="";
+
+});
+
+}
+
+
+/* =========================
+   SAYFA GEÇİŞLERİ
+========================= */
+
+function showPage(page){
+
+document
+.querySelectorAll(".page")
+.forEach(function(p){
+
+p.classList.remove("active");
+
+});
+
+const selected=
+document.getElementById(page);
+
+if(selected){
+
+selected.classList.add("active");
+
+}
 
 window.scrollTo(0,0);
 
 }
 
 
-function login(){
+/* =========================
+   OTURUM KONTROLÜ
+========================= */
 
-var email=document.getElementById("email").value;
-var password=document.getElementById("password").value;
+auth.onAuthStateChanged(function(user){
 
-if(!email || !password){
+if(user){
 
-alert("E-posta ve şifre girin.");
-
-return;
-}
-
-document.getElementById("loginPage").classList.add("hidden");
-document.getElementById("appPage").classList.remove("hidden");
+openApp(user);
 
 }
 
-
-function register(){
-
-var email=document.getElementById("email").value;
-var password=document.getElementById("password").value;
-
-if(!email || !password){
-
-alert("E-posta ve şifre girin.");
-
-return;
-}
-
-alert("Kayıt ekranı hazır. Firebase bağlantısını bir sonraki adımda ekleyeceğiz.");
-
-}
-
-
-function googleLogin(){
-
-alert("Google girişini Firebase'e bağlayacağız.");
-
-}
-
-
-function logout(){
-
-document.getElementById("appPage").classList.add("hidden");
-document.getElementById("loginPage").classList.remove("hidden");
-
-}
-
+});
 
 </script>
 
